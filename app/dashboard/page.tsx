@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import StatCard from '@/components/StatCard';
 
 export default function DashboardPage() {
   return (
@@ -17,33 +18,10 @@ export default function DashboardPage() {
       </header>
 
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        <Card>
-          <CardContent>
-            <div className="text-xs text-muted-foreground">Open tasks</div>
-            <div className="text-2xl font-bold mt-2">24</div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent>
-            <div className="text-xs text-muted-foreground">Notes drafted</div>
-            <div className="text-2xl font-bold mt-2">18</div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent>
-            <div className="text-xs text-muted-foreground">Spaces active</div>
-            <div className="text-2xl font-bold mt-2">7</div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent>
-            <div className="text-xs text-muted-foreground">AI templates</div>
-            <div className="text-2xl font-bold mt-2">12</div>
-          </CardContent>
-        </Card>
+        <StatCard label="Open tasks" value={24} pillColor="bg-rose-50 text-rose-700" />
+        <StatCard label="Notes drafted" value={18} pillColor="bg-green-50 text-green-700" />
+        <StatCard label="Spaces active" value={7} pillColor="bg-amber-50 text-amber-700" />
+        <StatCard label="AI templates" value={12} pillColor="bg-violet-50 text-violet-700" />
       </section>
 
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
