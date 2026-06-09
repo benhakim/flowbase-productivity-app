@@ -31,10 +31,23 @@ export default function DashboardPage() {
               <CardTitle>Workspace pulse</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="rounded-md border p-4">Design review<div className="text-xs text-muted-foreground mt-2">Today</div></div>
-                <div className="rounded-md border p-4">Sprint notes<div className="text-xs text-muted-foreground mt-2">2 drafts</div></div>
-                <div className="rounded-md border p-4">Whiteboard ideas<div className="text-xs text-muted-foreground mt-2">14 objects</div></div>
+              <div className="flex gap-4">
+                <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="rounded-md border bg-white p-4 shadow-sm border-l-4 border-rose-200">
+                    <div className="text-sm font-semibold">Design review</div>
+                    <div className="text-xs text-muted-foreground mt-2">Today</div>
+                  </div>
+
+                  <div className="rounded-md border bg-white p-4 shadow-sm border-l-4 border-emerald-200">
+                    <div className="text-sm font-semibold">Sprint notes</div>
+                    <div className="text-xs text-muted-foreground mt-2">2 drafts</div>
+                  </div>
+
+                  <div className="rounded-md border bg-white p-4 shadow-sm border-l-4 border-amber-200">
+                    <div className="text-sm font-semibold">Whiteboard ideas</div>
+                    <div className="text-xs text-muted-foreground mt-2">14 objects</div>
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -44,10 +57,19 @@ export default function DashboardPage() {
               <CardTitle>Activity</CardTitle>
             </CardHeader>
             <CardContent>
-              <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground">
-                <li>Product roadmap board updated</li>
-                <li>AI summarized weekly planning notes</li>
-                <li>Calendar focus block moved to 2:00 PM</li>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3">
+                  <span className="flex-shrink-0 mt-1 w-2 h-2 rounded-full bg-rose-500" />
+                  <span className="text-sm text-muted-foreground">Product roadmap board updated</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="flex-shrink-0 mt-1 w-2 h-2 rounded-full bg-amber-500" />
+                  <span className="text-sm text-muted-foreground">AI summarized weekly planning notes</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="flex-shrink-0 mt-1 w-2 h-2 rounded-full bg-rose-500" />
+                  <span className="text-sm text-muted-foreground">Calendar focus block moved to 2:00 PM</span>
+                </li>
               </ul>
             </CardContent>
           </Card>
@@ -59,10 +81,19 @@ export default function DashboardPage() {
               <CardTitle>Recent activity</CardTitle>
             </CardHeader>
             <CardContent>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>Product roadmap board updated</li>
-                <li>AI summarized weekly planning notes</li>
-                <li>Calendar focus block moved to 2:00 PM</li>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3">
+                  <span className="flex-shrink-0 mt-1 w-2 h-2 rounded-full bg-rose-500" />
+                  <span className="text-sm text-muted-foreground">Product roadmap board updated</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="flex-shrink-0 mt-1 w-2 h-2 rounded-full bg-amber-500" />
+                  <span className="text-sm text-muted-foreground">AI summarized weekly planning notes</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="flex-shrink-0 mt-1 w-2 h-2 rounded-full bg-rose-500" />
+                  <span className="text-sm text-muted-foreground">Calendar focus block moved to 2:00 PM</span>
+                </li>
               </ul>
             </CardContent>
           </Card>
