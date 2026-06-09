@@ -14,16 +14,40 @@ type MenuItem = {
   color?: string;
 };
 
-const MENU: MenuItem[] = [
-  { id: "dashboard", label: "Dashboard", icon: "Home", href: "/dashboard", color: "bg-sky-500" },
-  { id: "ai", label: "AI Assistant", icon: "Cpu", href: "/dashboard/ai", color: "bg-violet-500" },
-  { id: "calendar", label: "Calendar", icon: "Calendar", href: "/dashboard/calendar", color: "bg-rose-500" },
-  { id: "tasks", label: "Task / Kanban", icon: "CheckSquare", href: "/dashboard/tasks", color: "bg-amber-500" },
-  { id: "notes", label: "Notes", icon: "FileText", href: "/dashboard/notes", color: "bg-green-500" },
-  { id: "whiteboard", label: "Whiteboard", icon: "Layout", href: "/dashboard/whiteboard", color: "bg-fuchsia-500" },
-  { id: "pages", label: "Pages / Spaces", icon: "Layers", href: "/dashboard/pages", color: "bg-indigo-500" },
-  { id: "templates", label: "AI Template Builder", icon: "Zap", href: "/dashboard/templates", color: "bg-pink-500" },
-  { id: "settings", label: "Settings", icon: "Settings", href: "/dashboard/settings", color: "bg-gray-600" },
+type MenuGroup = {
+  id: string;
+  label: string;
+  items: MenuItem[];
+};
+
+const MENU_GROUPS: MenuGroup[] = [
+  {
+    id: "main",
+    label: "Main",
+    items: [
+      { id: "dashboard", label: "Dashboard", icon: "Home", href: "/dashboard", color: "bg-sky-500" },
+      { id: "ai", label: "AI Assistant", icon: "Cpu", href: "/dashboard/ai", color: "bg-violet-500" },
+      { id: "calendar", label: "Calendar", icon: "Calendar", href: "/dashboard/calendar", color: "bg-rose-500" },
+    ],
+  },
+  {
+    id: "work",
+    label: "Work",
+    items: [
+      { id: "tasks", label: "Task / Kanban", icon: "CheckSquare", href: "/dashboard/tasks", color: "bg-amber-500" },
+      { id: "notes", label: "Notes", icon: "FileText", href: "/dashboard/notes", color: "bg-green-500" },
+      { id: "whiteboard", label: "Whiteboard", icon: "Layout", href: "/dashboard/whiteboard", color: "bg-fuchsia-500" },
+    ],
+  },
+  {
+    id: "spaces",
+    label: "Spaces",
+    items: [
+      { id: "pages", label: "Pages / Spaces", icon: "Layers", href: "/dashboard/pages", color: "bg-indigo-500" },
+      { id: "templates", label: "AI Template Builder", icon: "Zap", href: "/dashboard/templates", color: "bg-pink-500" },
+      { id: "settings", label: "Settings", icon: "Settings", href: "/dashboard/settings", color: "bg-gray-600" },
+    ],
+  },
 ];
 
 const FallbackIcon: React.FC<{ className?: string }> = ({ className }) => (
@@ -65,7 +89,7 @@ export default function Sidebar() {
     <aside
       className={cn(
         "flex flex-col h-screen border-r border-border transition-all duration-200",
-        collapsed ? "w-20 bg-transparent" : "w-72 bg-[#fbf6ef] rounded-tr-2xl rounded-br-2xl"
+        collapsed ? "w-20 bg-transparent" : "w-64 bg-[#fffaf5] rounded-tr-2xl rounded-br-2xl"
       )}
       aria-label="Sidebar"
     >
@@ -111,29 +135,37 @@ export default function Sidebar() {
       </div>
 
       <nav className="flex-1 overflow-auto px-2">
-        <ul className="space-y-2">
-          {MENU.map((item) => {
-            const IconComp = (Icons as any)[item.icon] ?? FallbackIcon;
-            const active = pathname?.startsWith(item.href || '') && item.href !== '/';
-            return (
-              <li key={item.id}>
-                <Link
-                  href={item.href || '#'}
-                  className={cn(
-                    "group flex items-center gap-3 p-2 rounded-md",
-                    collapsed ? "justify-center" : "",
-                    active ? "bg-rose-100 text-rose-700" : "hover:bg-accent hover:text-accent-foreground"
-                  )}
-                >
-                  <div className={cn("w-9 h-9 flex items-center justify-center rounded-md shadow-sm", item.color)}>
-                    <IconComp className="w-4 h-4 text-white" />
-                  </div>
-                  {!collapsed && <span className="text-sm">{item.label}</span>}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        {MENU_GROUPS.map((group) => (
+          <div key={group.id} className="mb-3">
+            {!collapsed && (
+              <div className="px-3 mt-2 mb-1 text-xs font-semibold text-muted-foreground uppercase">{group.label}</div>
+            )}
+
+            <ul className="space-y-2 px-1">
+              {group.items.map((item) => {
+                const IconComp = (Icons as any)[item.icon] ?? FallbackIcon;
+                const active = pathname?.startsWith(item.href || '') && item.href !== '/';
+                return (
+                  <li key={item.id}>
+                    <Link
+                      href={item.href || '#'}
+                      className={cn(
+                        "group flex items-center gap-3 p-2 rounded-md",
+                        collapsed ? "justify-center" : "",
+                        active ? "bg-rose-100 text-rose-700" : "hover:bg-accent hover:text-accent-foreground"
+                      )}
+                    >
+                      <div className={cn("w-8 h-8 flex items-center justify-center rounded-md shadow-sm", item.color)}>
+                        <IconComp className="w-4 h-4 text-white" />
+                      </div>
+                      {!collapsed && <span className="text-sm">{item.label}</span>}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
       </nav>
 
       <div className="p-4 border-t border-border flex items-center gap-3">

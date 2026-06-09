@@ -9,8 +9,9 @@ This file documents the initial UI theme tokens and design guidelines for the Fl
 
 ## Color palette
 - Primary: #0f172a (navy) — used for primary buttons and logo background
-- Background: #ffffff / dark: #0f172a
-- Muted / Surfaces: soft grays for cards and panels
+- Background (app): #fbf6ef (cozy cream)
+- Surface / Card: #ffffff (clean white)
+- Muted / Text: #475569 (soft slate)
 - Accent colors (for colorful icons):
   - Sky: #0ea5e9
   - Violet: #7c3aed
