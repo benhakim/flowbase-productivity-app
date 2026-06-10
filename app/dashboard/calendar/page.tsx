@@ -113,8 +113,8 @@ export default function CalendarPage() {
     <div className="space-y-6 w-full max-w-6xl">
       <header className="flex items-center justify-between gap-4 mb-4">
         <div className="flex items-center gap-3">
-          <div className="rounded-md p-2 bg-rose-500 text-white flex items-center justify-center">
-            <Icons.Calendar className="w-5 h-5" />
+          <div className="rounded-md w-8 h-8 p-1 bg-rose-500 text-white flex items-center justify-center">
+            <Icons.Calendar className="w-4 h-4" />
           </div>
           <div className="hidden md:block">
             <div className="font-semibold text-sm">Calendar</div>
