@@ -48,6 +48,7 @@ export default function CalendarPage() {
   const [newTaskColor, setNewTaskColor] = useState("bg-rose-500");
 
   const monthLabel = displayDate.toLocaleString(undefined, { month: "long", year: "numeric" });
+  const todayKey = new Date().toISOString().slice(0, 10);
 
   function dateKey(d: Date) {
     return d.toISOString().slice(0, 10);
@@ -110,23 +111,29 @@ export default function CalendarPage() {
 
   return (
     <div className="space-y-6">
-      <header className="flex items-center justify-between">
-        <div>
+      <header className="grid grid-cols-12 items-center gap-4">
+        <div className="col-span-4">
           <div className="text-sm text-muted-foreground">Calendar</div>
-          <h1 className="text-2xl font-semibold">Calendar</h1>
+          <h1 className="text-2xl font-semibold">{monthLabel}</h1>
+          <div className="text-sm text-muted-foreground mt-1">Drop drafts or scheduled items onto any date.</div>
         </div>
 
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-2 bg-white border rounded-md px-2 py-1">
-            <Button variant="ghost" size="icon" onClick={prevMonth}><Icons.ChevronLeft className="w-4 h-4"/></Button>
-            <div className="text-sm font-medium px-2">{monthLabel}</div>
-            <Button variant="ghost" size="icon" onClick={nextMonth}><Icons.ChevronRight className="w-4 h-4"/></Button>
+        <div className="col-span-4 flex items-center justify-center gap-3">
+          <div className="inline-flex items-center gap-2 bg-white border rounded-md px-3 py-1 shadow-sm">
+            <button className={cn("text-sm px-3 py-1 rounded-md", view === 'month' ? 'bg-rose-100 text-rose-700' : 'text-muted-foreground')} onClick={() => setView('month')}>Month</button>
+            <button className={cn("text-sm px-3 py-1 rounded-md", view === 'week' ? 'bg-rose-100 text-rose-700' : 'text-muted-foreground')} onClick={() => setView('week')}>Week</button>
+            <button className="ml-2 text-sm px-3 py-1 rounded-md bg-white border" onClick={() => setDisplayDate(new Date())}>Today</button>
           </div>
 
-          <div className="ml-4 inline-flex items-center gap-2 bg-white border rounded-md px-2 py-1">
-            <button className={cn("px-2 py-1 rounded text-sm", view === 'month' ? 'bg-rose-100 text-rose-700' : 'text-muted-foreground')} onClick={() => setView('month')}>Month</button>
-            <button className={cn("px-2 py-1 rounded text-sm", view === 'week' ? 'bg-rose-100 text-rose-700' : 'text-muted-foreground')} onClick={() => setView('week')}>Week</button>
+          <div className="inline-flex items-center gap-2 bg-white border rounded-md px-2 py-1">
+            <button className="p-1" onClick={prevMonth}><Icons.ChevronLeft className="w-4 h-4"/></button>
+            <div className="text-sm font-medium px-2">{monthLabel}</div>
+            <button className="p-1" onClick={nextMonth}><Icons.ChevronRight className="w-4 h-4"/></button>
           </div>
+        </div>
+
+        <div className="col-span-4 flex items-center justify-end">
+          <button className="bg-rose-600 text-white px-4 py-2 rounded-md">+ New task</button>
         </div>
       </header>
 
@@ -144,24 +151,29 @@ export default function CalendarPage() {
                 {days.map((day) => {
                   const key = dateKey(day);
                   const isCurrentMonth = day.getMonth() === displayDate.getMonth();
+                  const isToday = key === todayKey;
                   const tasks = scheduled[key] || [];
                   return (
                     <div key={key}
                       onDragOver={(e) => e.preventDefault()}
                       onDrop={(e) => handleDropOnDate(e, key)}
-                      className={cn("border rounded-md p-2 min-h-[92px] bg-white relative", !isCurrentMonth && 'opacity-50')}
+                      className={cn(
+                        "rounded-md p-4 min-h-[140px] md:min-h-[160px] bg-white relative shadow-sm",
+                        !isCurrentMonth && 'opacity-50',
+                        isToday && 'ring-1 ring-rose-100'
+                      )}
                     >
                       <div className="flex items-start justify-between">
-                        <div className="text-sm font-medium">{day.getDate()}</div>
+                        <div className="text-sm font-medium text-slate-700">{day.getDate()}</div>
                         <div className="text-xs text-muted-foreground">{isCurrentMonth ? '' : ''}</div>
                       </div>
 
-                      <div className="mt-2 space-y-1">
+                      <div className="mt-3 space-y-2">
                         {tasks.map((t) => (
                           <div key={t.id}
                             draggable
                             onDragStart={(e) => onDragStartScheduled(e, t, key)}
-                            className="flex items-center gap-2 text-sm rounded px-2 py-1"
+                            className="flex items-center gap-2 text-sm rounded px-2 py-1 bg-slate-50"
                           >
                             <span className={cn('w-2 h-2 rounded-full shrink-0', t.color)} />
                             <span className="truncate">{t.title}</span>
@@ -184,7 +196,7 @@ export default function CalendarPage() {
                           </div>
                         </div>
                       ) : (
-                        <div className="absolute bottom-2 left-2">
+                        <div className="absolute bottom-3 left-3">
                           <button className="text-xs text-muted-foreground" onClick={() => setCreatingDate(key)}>+ Add</button>
                         </div>
                       )}
@@ -198,8 +210,12 @@ export default function CalendarPage() {
 
         <aside className="w-80">
           <Card>
-            <CardHeader>
+            <CardHeader className="flex items-center justify-between">
               <CardTitle>Draft Task Panel</CardTitle>
+              <div className="flex items-center gap-2">
+                <button className="text-sm px-3 py-1 rounded-md border bg-white" onClick={() => { /* open add draft UI */ }}>+ Add draft</button>
+                <div className="rounded-full bg-rose-100 text-rose-700 px-2 py-1 text-xs">{drafts.length}</div>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
@@ -218,17 +234,25 @@ export default function CalendarPage() {
 
                 <div className="mt-4">
                   <div className="text-sm text-muted-foreground mb-2">Drafts</div>
-                  <div className="space-y-2">
-                    {drafts.map((d) => (
-                      <div key={d.id} draggable onDragStart={(e) => onDragStartDraft(e, d)} className="flex items-center gap-3 p-2 border rounded bg-white">
-                        <div className={cn('w-8 h-8 rounded flex items-center justify-center text-white', d.color)}>
-                          <Icons.FileText className="w-4 h-4" />
+                  {drafts.length === 0 ? (
+                    <div className="border-2 border-dashed border-muted rounded-md p-6 text-center text-sm text-muted-foreground">
+                      <Icons.Inbox className="mx-auto mb-2 w-6 h-6 text-muted-foreground" />
+                      No drafts waiting
+                      <div className="text-xs text-muted-foreground mt-2">Save unscheduled tasks here, then drag them onto a date.</div>
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      {drafts.map((d) => (
+                        <div key={d.id} draggable onDragStart={(e) => onDragStartDraft(e, d)} className="flex items-center gap-3 p-2 border rounded bg-white">
+                          <div className={cn('w-8 h-8 rounded flex items-center justify-center text-white', d.color)}>
+                            <Icons.FileText className="w-4 h-4" />
+                          </div>
+                          <div className="flex-1 text-sm">{d.title}</div>
+                          <button className="text-xs text-muted-foreground" onClick={() => setDrafts((s) => s.filter(x => x.id !== d.id))}>Remove</button>
                         </div>
-                        <div className="flex-1 text-sm">{d.title}</div>
-                        <button className="text-xs text-muted-foreground" onClick={() => setDrafts((s) => s.filter(x => x.id !== d.id))}>Remove</button>
-                      </div>
-                    ))}
-                  </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </CardContent>
