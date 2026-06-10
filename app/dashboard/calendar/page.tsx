@@ -219,9 +219,9 @@ export default function CalendarPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                <div className="flex gap-2">
-                  <input value={newTaskTitle} onChange={(e) => setNewTaskTitle(e.target.value)} placeholder="New task title" className="flex-1 border p-2 rounded" />
-                  <select value={newTaskColor} onChange={(e) => setNewTaskColor(e.target.value)} className="text-sm p-2 border rounded">
+                <div className="flex gap-2 items-center">
+                  <input value={newTaskTitle} onChange={(e) => setNewTaskTitle(e.target.value)} placeholder="New task title" className="flex-1 min-w-0 border p-2 rounded" />
+                  <select value={newTaskColor} onChange={(e) => setNewTaskColor(e.target.value)} className="text-sm p-2 border rounded w-28 shrink-0">
                     <option value="bg-rose-500">Red</option>
                     <option value="bg-emerald-500">Green</option>
                     <option value="bg-amber-500">Amber</option>
