@@ -191,14 +191,17 @@ export default function CalendarPage() {
                         <div className="absolute inset-2 bg-white p-2 rounded-md shadow-md">
                           <input autoFocus value={newTaskTitle} onChange={(e) => setNewTaskTitle(e.target.value)} placeholder="Task title" className="w-full border p-1 rounded mb-2" />
                           <div className="flex items-center gap-3">
-                            <div className="rounded-md w-6 h-6 p-1 md:w-8 md:h-8 md:p-1 bg-rose-500 text-white flex items-center justify-center">
-                              <Icons.Calendar className="w-3 h-3 md:w-4 md:h-4" />
-                            </div>
-                              <option value="bg-amber-500">Amber</option>
-                              <option value="bg-sky-500">Sky</option>
-                            </select>
-                            <Button onClick={() => handleAddTaskToDate(key)}>Add</Button>
-                            <Button variant="ghost" onClick={() => setCreatingDate(null)}>Cancel</Button>
+                              <div className="rounded-md w-6 h-6 p-1 md:w-8 md:h-8 md:p-1 bg-rose-500 text-white flex items-center justify-center">
+                                <Icons.Calendar className="w-3 h-3 md:w-4 md:h-4" />
+                              </div>
+                              <select value={newTaskColor} onChange={(e) => setNewTaskColor(e.target.value)} className="text-sm p-1 border rounded">
+                                <option value="bg-rose-500">Red</option>
+                                <option value="bg-emerald-500">Green</option>
+                                <option value="bg-amber-500">Amber</option>
+                                <option value="bg-sky-500">Sky</option>
+                              </select>
+                              <Button onClick={() => handleAddTaskToDate(key)}>Add</Button>
+                              <Button variant="ghost" onClick={() => setCreatingDate(null)}>Cancel</Button>
                           </div>
                         </div>
                       ) : (
