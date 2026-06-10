@@ -110,21 +110,21 @@ export default function CalendarPage() {
   }
 
   return (
-    <div className="space-y-6 max-w-6xl mx-auto w-full">
+    <div className="space-y-6 w-full max-w-6xl">
       <header className="flex items-center justify-between gap-4 mb-4">
         <div className="flex items-center gap-3">
-          <div className="rounded-md p-2 bg-primary text-primary-foreground flex items-center justify-center">
-            <span className="font-extrabold text-sm">FB</span>
+          <div className="rounded-md p-2 bg-rose-500 text-white flex items-center justify-center">
+            <Icons.Calendar className="w-5 h-5" />
           </div>
           <div className="hidden md:block">
-            <div className="font-semibold text-sm">Flowbase</div>
-            <div className="text-xs text-muted-foreground mt-0.5">Calendar</div>
+            <div className="font-semibold text-sm">Calendar</div>
+            <div className="text-xs text-muted-foreground mt-0.5">Workspace</div>
           </div>
         </div>
 
         <div className="flex-1 text-center">
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-800">{monthLabel}</h1>
-          <div className="text-sm text-slate-600 mt-1 font-medium">Drop drafts or scheduled items onto any date.</div>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900">{monthLabel}</h1>
+          <div className="text-sm text-slate-700 mt-1 font-semibold">Drop drafts or scheduled items onto any date.</div>
         </div>
 
         <div className="flex items-center gap-3">
@@ -164,7 +164,7 @@ export default function CalendarPage() {
                       onDragOver={(e) => e.preventDefault()}
                       onDrop={(e) => handleDropOnDate(e, key)}
                       className={cn(
-                        "rounded-md p-3 min-h-[100px] md:min-h-[120px] bg-white relative shadow-sm",
+                        "rounded-md p-2 min-h-[80px] md:min-h-[96px] bg-white relative shadow-sm",
                         !isCurrentMonth && 'opacity-50',
                         isToday && 'ring-1 ring-rose-100'
                       )}
