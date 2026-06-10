@@ -110,7 +110,7 @@ export default function CalendarPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-6xl mx-auto w-full">
       <header className="grid grid-cols-12 items-center gap-4">
         <div className="col-span-4">
           <div className="text-sm text-muted-foreground">Calendar</div>
@@ -158,7 +158,7 @@ export default function CalendarPage() {
                       onDragOver={(e) => e.preventDefault()}
                       onDrop={(e) => handleDropOnDate(e, key)}
                       className={cn(
-                        "rounded-md p-4 min-h-[140px] md:min-h-[160px] bg-white relative shadow-sm",
+                        "rounded-md p-3 min-h-[100px] md:min-h-[120px] bg-white relative shadow-sm",
                         !isCurrentMonth && 'opacity-50',
                         isToday && 'ring-1 ring-rose-100'
                       )}
