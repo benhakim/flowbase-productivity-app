@@ -111,14 +111,23 @@ export default function CalendarPage() {
 
   return (
     <div className="space-y-6 max-w-6xl mx-auto w-full">
-      <header className="grid grid-cols-12 items-center gap-4">
-        <div className="col-span-4">
-          <div className="text-sm text-muted-foreground">Calendar</div>
-          <h1 className="text-2xl font-semibold">{monthLabel}</h1>
-          <div className="text-sm text-muted-foreground mt-1">Drop drafts or scheduled items onto any date.</div>
+      <header className="flex items-center justify-between gap-4 mb-4">
+        <div className="flex items-center gap-3">
+          <div className="rounded-md p-2 bg-primary text-primary-foreground flex items-center justify-center">
+            <span className="font-extrabold text-sm">FB</span>
+          </div>
+          <div className="hidden md:block">
+            <div className="font-semibold text-sm">Flowbase</div>
+            <div className="text-xs text-muted-foreground mt-0.5">Calendar</div>
+          </div>
         </div>
 
-        <div className="col-span-4 flex items-center justify-center gap-3">
+        <div className="flex-1 text-center">
+          <h1 className="text-3xl md:text-4xl font-bold text-slate-800">{monthLabel}</h1>
+          <div className="text-sm text-slate-600 mt-1 font-medium">Drop drafts or scheduled items onto any date.</div>
+        </div>
+
+        <div className="flex items-center gap-3">
           <div className="inline-flex items-center gap-2 bg-white border rounded-md px-3 py-1 shadow-sm">
             <button className={cn("text-sm px-3 py-1 rounded-md", view === 'month' ? 'bg-rose-100 text-rose-700' : 'text-muted-foreground')} onClick={() => setView('month')}>Month</button>
             <button className={cn("text-sm px-3 py-1 rounded-md", view === 'week' ? 'bg-rose-100 text-rose-700' : 'text-muted-foreground')} onClick={() => setView('week')}>Week</button>
@@ -127,12 +136,9 @@ export default function CalendarPage() {
 
           <div className="inline-flex items-center gap-2 bg-white border rounded-md px-2 py-1">
             <button className="p-1" onClick={prevMonth}><Icons.ChevronLeft className="w-4 h-4"/></button>
-            <div className="text-sm font-medium px-2">{monthLabel}</div>
             <button className="p-1" onClick={nextMonth}><Icons.ChevronRight className="w-4 h-4"/></button>
           </div>
-        </div>
 
-        <div className="col-span-4 flex items-center justify-end">
           <button className="bg-rose-600 text-white px-4 py-2 rounded-md">+ New task</button>
         </div>
       </header>
