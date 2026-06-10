@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation";
+import CalendarPage from "../dashboard/calendar/page";
 
 export default function Page() {
-  redirect("/dashboard/calendar");
+  return <CalendarPage />;
 }

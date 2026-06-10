@@ -27,7 +27,7 @@ const MENU_GROUPS: MenuGroup[] = [
     items: [
       { id: "dashboard", label: "Dashboard", icon: "Home", href: "/dashboard", color: "bg-sky-500" },
       { id: "ai", label: "AI Assistant", icon: "Cpu", href: "/dashboard/ai", color: "bg-violet-500" },
-      { id: "calendar", label: "Calendar", icon: "Calendar", href: "/dashboard/calendar", color: "bg-rose-500" },
+      { id: "calendar", label: "Calendar", icon: "Calendar", href: "/calendar", color: "bg-rose-500" },
     ],
   },
   {
